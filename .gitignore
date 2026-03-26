@@ -1,0 +1,9 @@
+tts-env/
+*.dylib
+*.dic
+__pycache__/
+*.m4a
+*.wav
+static/audio/
+*.pyc
+.DS_Store
