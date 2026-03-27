@@ -3,7 +3,7 @@ from TTS.api import TTS
 import os
 import uuid
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 # 📁 Folders
 AUDIO_FOLDER = os.path.join("static", "audio")
