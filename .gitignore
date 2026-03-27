@@ -1,4 +1,5 @@
 venv/
+tts-env/
 __pycache__/
 static/audio/
 *.pyc
