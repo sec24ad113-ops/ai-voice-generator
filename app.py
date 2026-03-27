@@ -19,7 +19,7 @@ device = "cpu"
 
 @app.route("/")
 def index():
-    return "App is working"
+    return render_template("index.html")
 
 
 # ── Route 1: Speak in YOUR cloned voice ──────────────────────────────────────
