@@ -98,17 +98,24 @@
       font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
       letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
     }
-    .btn-generate:hover, .btn-ai:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-generate:active, .btn-ai:active { transform: translateY(0); }
-    .btn-generate:disabled, .btn-ai:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .btn-generate .spinner, .btn-ai .spinner {
+    .btn-rajini {
+      width: 100%; padding: 16px; margin-top: 12px;
+      background: linear-gradient(135deg, #f97316, #fbbf24);
+      border: none; border-radius: 14px; color: #0a0a0f;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-generate:hover, .btn-ai:hover, .btn-rajini:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-generate:active, .btn-ai:active, .btn-rajini:active { transform: translateY(0); }
+    .btn-generate:disabled, .btn-ai:disabled, .btn-rajini:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-generate .spinner, .btn-ai .spinner, .btn-rajini .spinner {
       display: none; width: 18px; height: 18px;
       border: 2px solid rgba(0,0,0,0.2); border-top-color: #0a0a0f;
       border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .btn-generate.loading .btn-text, .btn-ai.loading .btn-text { display: none; }
-    .btn-generate.loading .spinner, .btn-ai.loading .spinner { display: block; }
+    .btn-generate.loading .btn-text, .btn-ai.loading .btn-text, .btn-rajini.loading .btn-text { display: none; }
+    .btn-generate.loading .spinner, .btn-ai.loading .spinner, .btn-rajini.loading .spinner { display: block; }
 
     .status {
       padding: 13px 16px; border-radius: 12px; font-size: 12px;
@@ -125,6 +132,8 @@
     .player-card.visible { display: block; }
     .player-card.ai-card { border-color: rgba(92,243,252,0.2); }
     .player-card.ai-card .player-label { color: #5cf3fc; }
+    .player-card.rajini-card { border-color: rgba(251,191,36,0.2); }
+    .player-card.rajini-card .player-label { color: #fbbf24; }
     .player-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
     audio { width: 100%; border-radius: 10px; filter: invert(1) hue-rotate(180deg); }
     .download-btn {
@@ -145,7 +154,7 @@
     <header>
       <div class="badge">Your Voice · Always On</div>
       <h1>VoiceForge</h1>
-      <p class="subtitle">Type anything — speak in your voice or AI voice.</p>
+      <p class="subtitle">Type anything — speak in your voice, AI voice, or Rajinikanth's voice.</p>
     </header>
 
     <!-- Text input -->
@@ -203,6 +212,24 @@
       <audio id="aiAudioPlayer" controls></audio>
       <br/>
       <a class="download-btn" id="aiDownloadBtn" download>⬇ Download WAV</a>
+    </div>
+
+    <div class="divider">— or —</div>
+
+    <!-- Rajini Voice button -->
+    <button class="btn-rajini" id="rajiniBtn" onclick="generateRajini()">
+      <span class="btn-text">🎬 Speak in Rajinikanth's Voice</span>
+      <div class="spinner"></div>
+    </button>
+
+    <div class="status" id="rajini-status"></div>
+
+    <!-- Rajini Voice output -->
+    <div class="player-card rajini-card" id="rajiniPlayerCard">
+      <div class="player-label">Rajinikanth Voice — Generated Audio</div>
+      <audio id="rajiniAudioPlayer" controls></audio>
+      <br/>
+      <a class="download-btn" id="rajiniDownloadBtn" download>⬇ Download WAV</a>
     </div>
 
     <!-- Original recorded voice -->
@@ -294,6 +321,43 @@
         }
       } catch (e) {
         showStatus('ai-status', 'error', '✗ Server error. Is Flask running?');
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    async function generateRajini() {
+      const text = document.getElementById('text').value.trim();
+      const lang = document.getElementById('lang').value;
+      if (!text) return showStatus('rajini-status', 'error', '✗ Please type something first.');
+
+      const btn = document.getElementById('rajiniBtn');
+      btn.disabled = true;
+      btn.classList.add('loading');
+      showStatus('rajini-status', 'success', '⏳ Generating Rajini voice... please wait...');
+
+      const form = new FormData();
+      form.append('text', text);
+      form.append('language', lang);
+
+      try {
+        const res = await fetch('/generate-rajini', { method: 'POST', body: form });
+        const data = await res.json();
+        if (data.success) {
+          showStatus('rajini-status', 'success', '✓ Done! Playing Rajini voice...');
+          const player = document.getElementById('rajiniAudioPlayer');
+          const card = document.getElementById('rajiniPlayerCard');
+          player.src = data.audio_url;
+          document.getElementById('rajiniDownloadBtn').href = data.audio_url;
+          card.classList.add('visible');
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          player.play();
+        } else {
+          showStatus('rajini-status', 'error', `✗ ${data.error}`);
+        }
+      } catch (e) {
+        showStatus('rajini-status', 'error', '✗ Server error. Is Flask running?');
       } finally {
         btn.disabled = false;
         btn.classList.remove('loading');
