@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify, url_for
-# from TTS.api import TTS
 import os
 import uuid
-# import torch
 
 app = Flask(__name__)
 
@@ -17,14 +15,11 @@ RAJINI_VOICE = os.path.join("static", "rajini_clean.wav")
 # ⚡ Device
 device = "cpu"
 
-# 🤖 Models (loaded lazily)
-# tts_clone = None
-# tts_ai = None
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return "App is working"
 
 
 # ── Route 1: Speak in YOUR cloned voice ──────────────────────────────────────
@@ -52,7 +47,7 @@ def generate():
         #     speaker_wav=MY_VOICE,
         #     language=language,
             # file_path=output_path
-        )
+        
 
         return jsonify({
             "success": True,
@@ -116,7 +111,7 @@ def generate_rajini():
         #     speaker_wav=RAJINI_VOICE,
         #     language=language,
         #     file_path=output_path
-        )
+    
 
         return jsonify({
             "success": True,
