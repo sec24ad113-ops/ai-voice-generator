@@ -17,9 +17,7 @@
       --success: #4ade80;
       --error: #f87171;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -30,7 +28,6 @@
       justify-content: center;
       overflow-x: hidden;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -42,205 +39,102 @@
       opacity: 0.4;
       pointer-events: none;
     }
-
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.12;
-      pointer-events: none;
-    }
+    .orb { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.12; pointer-events: none; }
     .orb-1 { width: 500px; height: 500px; background: var(--accent); top: -100px; left: -100px; }
     .orb-2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; right: -100px; }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 640px;
-      padding: 40px 24px;
-    }
-
+    .container { position: relative; z-index: 1; width: 100%; max-width: 640px; padding: 40px 24px; }
     header { text-align: center; margin-bottom: 40px; }
-
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(124,92,252,0.12);
-      border: 1px solid rgba(124,92,252,0.3);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font-size: 11px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 16px;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.3);
+      border-radius: 100px; padding: 6px 14px; font-size: 11px;
+      letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 16px;
     }
-
     .badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
+      content: ''; width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%; animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.8); }
     }
-
     h1 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 6vw, 3.2rem);
-      font-weight: 800;
+      font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800;
       background: linear-gradient(135deg, #fff 0%, var(--accent) 60%, var(--accent2) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; margin-bottom: 10px;
     }
-
     .subtitle { color: var(--muted); font-size: 13px; line-height: 1.6; }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 28px;
-      margin-bottom: 16px;
-    }
-
-    .card-label {
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 28px; margin-bottom: 16px; }
+    .card-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
     textarea {
-      width: 100%;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 13px;
-      line-height: 1.7;
-      resize: vertical;
-      min-height: 140px;
-      outline: none;
-      transition: border-color 0.2s;
+      width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; color: var(--text);
+      font-family: 'DM Mono', monospace; font-size: 13px; line-height: 1.7;
+      resize: vertical; min-height: 140px; outline: none; transition: border-color 0.2s;
     }
-
     textarea:focus { border-color: var(--accent); }
-
-    .row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 12px;
-    }
-
+    .row { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
     select {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 13px;
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      outline: none;
-      cursor: pointer;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      border-radius: 10px; padding: 9px 13px; color: var(--text);
+      font-family: 'DM Mono', monospace; font-size: 12px; outline: none; cursor: pointer;
     }
-
     select:focus { border-color: var(--accent); }
-
     .char-count { font-size: 11px; color: var(--muted); }
 
     .btn-generate {
-      width: 100%;
-      padding: 16px;
+      width: 100%; padding: 16px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 14px;
-      color: #fff;
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
+      border: none; border-radius: 14px; color: #fff;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
     }
-
-    .btn-generate:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn-generate:active { transform: translateY(0); }
-    .btn-generate:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .btn-generate .spinner {
-      display: none;
-      width: 18px; height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto;
+    .btn-ai {
+      width: 100%; padding: 16px; margin-top: 12px;
+      background: linear-gradient(135deg, #1aafc2, #5cf3fc);
+      border: none; border-radius: 14px; color: #0a0a0f;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+      letter-spacing: 1px; cursor: pointer; transition: opacity 0.2s, transform 0.15s;
     }
-
+    .btn-generate:hover, .btn-ai:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-generate:active, .btn-ai:active { transform: translateY(0); }
+    .btn-generate:disabled, .btn-ai:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-generate .spinner, .btn-ai .spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2px solid rgba(0,0,0,0.2); border-top-color: #0a0a0f;
+      border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .btn-generate.loading .btn-text { display: none; }
-    .btn-generate.loading .spinner { display: block; }
+    .btn-generate.loading .btn-text, .btn-ai.loading .btn-text { display: none; }
+    .btn-generate.loading .spinner, .btn-ai.loading .spinner { display: block; }
 
     .status {
-      padding: 13px 16px;
-      border-radius: 12px;
-      font-size: 12px;
-      display: none;
-      margin-top: 14px;
-      animation: fadeIn 0.3s ease;
+      padding: 13px 16px; border-radius: 12px; font-size: 12px;
+      display: none; margin-top: 14px; animation: fadeIn 0.3s ease;
     }
-
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; } }
-
     .status.success { background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); color: var(--success); }
     .status.error { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); color: var(--error); }
 
     .player-card {
-      display: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px 28px;
-      margin-top: 16px;
-      animation: fadeIn 0.4s ease;
+      display: none; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 24px 28px; margin-top: 16px; animation: fadeIn 0.4s ease;
     }
-
     .player-card.visible { display: block; }
+    .player-card.ai-card { border-color: rgba(92,243,252,0.2); }
+    .player-card.ai-card .player-label { color: #5cf3fc; }
     .player-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-
     audio { width: 100%; border-radius: 10px; filter: invert(1) hue-rotate(180deg); }
-
     .download-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 12px;
-      padding: 9px 16px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--muted);
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      text-decoration: none;
-      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 12px; padding: 9px 16px; background: transparent;
+      border: 1px solid var(--border); border-radius: 10px; color: var(--muted);
+      font-family: 'DM Mono', monospace; font-size: 12px; text-decoration: none; transition: all 0.2s;
     }
-
     .download-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .divider { text-align: center; color: var(--muted); font-size: 11px; letter-spacing: 2px; margin: 12px 0; text-transform: uppercase; }
   </style>
 </head>
 <body>
@@ -251,9 +145,10 @@
     <header>
       <div class="badge">Your Voice · Always On</div>
       <h1>VoiceForge</h1>
-      <p class="subtitle">Type anything — it speaks in your voice.</p>
+      <p class="subtitle">Type anything — speak in your voice or AI voice.</p>
     </header>
 
+    <!-- Text input -->
     <div class="card">
       <div class="card-label">What should your voice say?</div>
       <textarea id="text" placeholder="Type your text here..." oninput="updateCount()"></textarea>
@@ -276,6 +171,7 @@
       </div>
     </div>
 
+    <!-- My Voice button -->
     <button class="btn-generate" id="genBtn" onclick="generate()">
       <span class="btn-text">⚡ Speak in My Voice</span>
       <div class="spinner"></div>
@@ -283,21 +179,41 @@
 
     <div class="status" id="status"></div>
 
-    <!-- Generated audio (dynamic) -->
-<div class="player-card" id="playerCard">
-  <div class="player-label">Generated Audio</div>
-  <audio id="audioPlayer" controls></audio>
-  <br/>
-  <a class="download-btn" id="downloadBtn" download>⬇ Download WAV</a>
-</div>
+    <!-- My Voice output -->
+    <div class="player-card" id="playerCard">
+      <div class="player-label">My Voice — Generated Audio</div>
+      <audio id="audioPlayer" controls></audio>
+      <br/>
+      <a class="download-btn" id="downloadBtn" download>⬇ Download WAV</a>
+    </div>
 
-<!-- Your recorded audio (static) -->
-<div class="player-card visible">
-  <div class="player-label">My Recorded Voice</div>
-  <audio controls>
-    <source src="{{ url_for('static', filename='hanirecording.m4a') }}" type="audio/mp4">
-  </audio>
-</div>
+    <div class="divider">— or —</div>
+
+    <!-- AI Voice button -->
+    <button class="btn-ai" id="aiBtn" onclick="generateAI()">
+      <span class="btn-text">🤖 Speak in AI Voice</span>
+      <div class="spinner"></div>
+    </button>
+
+    <div class="status" id="ai-status"></div>
+
+    <!-- AI Voice output -->
+    <div class="player-card ai-card" id="aiPlayerCard">
+      <div class="player-label">AI Voice — Generated Audio</div>
+      <audio id="aiAudioPlayer" controls></audio>
+      <br/>
+      <a class="download-btn" id="aiDownloadBtn" download>⬇ Download WAV</a>
+    </div>
+
+    <!-- Original recorded voice -->
+    <div class="player-card visible" style="margin-top: 16px;">
+      <div class="player-label">My Recorded Voice (Sample)</div>
+      <audio controls>
+        <source src="{{ url_for('static', filename='hanirecording.m4a') }}" type="audio/mp4">
+      </audio>
+    </div>
+
+  </div>
 
   <script>
     function updateCount() {
@@ -305,8 +221,8 @@
         document.getElementById('text').value.length + ' chars';
     }
 
-    function showStatus(type, msg) {
-      const el = document.getElementById('status');
+    function showStatus(id, type, msg) {
+      const el = document.getElementById(id);
       el.className = `status ${type}`;
       el.textContent = msg;
       el.style.display = 'block';
@@ -315,13 +231,12 @@
     async function generate() {
       const text = document.getElementById('text').value.trim();
       const lang = document.getElementById('lang').value;
-
-      if (!text) return showStatus('error', '✗ Please type something first.');
+      if (!text) return showStatus('status', 'error', '✗ Please type something first.');
 
       const btn = document.getElementById('genBtn');
       btn.disabled = true;
       btn.classList.add('loading');
-      showStatus('success', '⏳ Generating in your voice... please wait...');
+      showStatus('status', 'success', '⏳ Generating in your voice... please wait...');
 
       const form = new FormData();
       form.append('text', text);
@@ -330,22 +245,55 @@
       try {
         const res = await fetch('/generate', { method: 'POST', body: form });
         const data = await res.json();
-
         if (data.success) {
-          showStatus('success', '✓ Done! Playing your voice...');
+          showStatus('status', 'success', '✓ Done! Playing your voice...');
           const player = document.getElementById('audioPlayer');
-          const dlBtn = document.getElementById('downloadBtn');
           const card = document.getElementById('playerCard');
           player.src = data.audio_url;
-          dlBtn.href = data.audio_url;
+          document.getElementById('downloadBtn').href = data.audio_url;
           card.classList.add('visible');
           card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           player.play();
         } else {
-          showStatus('error', `✗ ${data.error}`);
+          showStatus('status', 'error', `✗ ${data.error}`);
         }
       } catch (e) {
-        showStatus('error', '✗ Server error. Is Flask running?');
+        showStatus('status', 'error', '✗ Server error. Is Flask running?');
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    }
+
+    async function generateAI() {
+      const text = document.getElementById('text').value.trim();
+      if (!text) return showStatus('ai-status', 'error', '✗ Please type something first.');
+
+      const btn = document.getElementById('aiBtn');
+      btn.disabled = true;
+      btn.classList.add('loading');
+      showStatus('ai-status', 'success', '⏳ Generating AI voice... please wait...');
+
+      const form = new FormData();
+      form.append('text', text);
+
+      try {
+        const res = await fetch('/generate-ai', { method: 'POST', body: form });
+        const data = await res.json();
+        if (data.success) {
+          showStatus('ai-status', 'success', '✓ Done! Playing AI voice...');
+          const player = document.getElementById('aiAudioPlayer');
+          const card = document.getElementById('aiPlayerCard');
+          player.src = data.audio_url;
+          document.getElementById('aiDownloadBtn').href = data.audio_url;
+          card.classList.add('visible');
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          player.play();
+        } else {
+          showStatus('ai-status', 'error', `✗ ${data.error}`);
+        }
+      } catch (e) {
+        showStatus('ai-status', 'error', '✗ Server error. Is Flask running?');
       } finally {
         btn.disabled = false;
         btn.classList.remove('loading');

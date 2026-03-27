@@ -16,8 +16,9 @@ MY_VOICE = os.path.join("static", "hanirecording.wav")
 # ⚡ Device
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# 🤖 Load AI model
-tts = None
+# 🤖 Models (loaded lazily)
+tts_clone = None   # voice cloning model (sounds like you)
+tts_ai = None      # standard AI voice model
 
 
 @app.route("/")
@@ -25,13 +26,14 @@ def index():
     return render_template("index.html")
 
 
+# ── Route 1: Speak in YOUR cloned voice ──────────────────────────────────────
 @app.route("/generate", methods=["POST"])
 def generate():
     try:
-        global tts
-        if tts is None:
-            tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-                
+        global tts_clone
+        if tts_clone is None:
+            tts_clone = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+
         text = request.form.get("text", "").strip()
         language = request.form.get("language", "en")
 
@@ -39,17 +41,12 @@ def generate():
             return jsonify({"success": False, "error": "No text provided"}), 400
 
         if not os.path.exists(MY_VOICE):
-            return jsonify({
-                "success": False,
-                "error": "Voice file not found in static folder"
-            }), 500
+            return jsonify({"success": False, "error": "Voice file not found"}), 500
 
-        # 🎤 Generated audio file
         filename = f"speech_{uuid.uuid4().hex}.wav"
         output_path = os.path.join(AUDIO_FOLDER, filename)
 
-        # 🔊 Generate AI voice using your recording
-        tts.tts_to_file(
+        tts_clone.tts_to_file(
             text=text,
             speaker_wav=MY_VOICE,
             language=language,
@@ -62,10 +59,34 @@ def generate():
         })
 
     except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+# ── Route 2: Speak in standard AI voice ──────────────────────────────────────
+@app.route("/generate-ai", methods=["POST"])
+def generate_ai():
+    try:
+        global tts_ai
+        if tts_ai is None:
+            tts_ai = TTS("tts_models/en/ljspeech/tacotron2-DDC").to(device)
+
+        text = request.form.get("text", "").strip()
+
+        if not text:
+            return jsonify({"success": False, "error": "No text provided"}), 400
+
+        filename = f"ai_{uuid.uuid4().hex}.wav"
+        output_path = os.path.join(AUDIO_FOLDER, filename)
+
+        tts_ai.tts_to_file(text=text, file_path=output_path)
+
         return jsonify({
-            "success": False,
-            "error": str(e)
-        }), 500
+            "success": True,
+            "audio_url": url_for('static', filename=f"audio/{filename}")
+        })
+
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 
 if __name__ == "__main__":
