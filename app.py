@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify, url_for
-from TTS.api import TTS
+# from TTS.api import TTS
 import os
 import uuid
-import torch
+# import torch
 
 app = Flask(__name__)
 
@@ -15,11 +15,11 @@ MY_VOICE = os.path.join("static", "hanirecording.wav")
 RAJINI_VOICE = os.path.join("static", "rajini_clean.wav")
 
 # ⚡ Device
-device = "cuda" if torch.cuda.is_available() else "cpu"
+device = "cpu"
 
 # 🤖 Models (loaded lazily)
-tts_clone = None
-tts_ai = None
+# tts_clone = None
+# tts_ai = None
 
 
 @app.route("/")
@@ -32,8 +32,8 @@ def index():
 def generate():
     try:
         global tts_clone
-        if tts_clone is None:
-            tts_clone = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+        # if tts_clone is None:
+        #     tts_clone = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
         text = request.form.get("text", "").strip()
         language = request.form.get("language", "en")
@@ -47,16 +47,17 @@ def generate():
         filename = f"speech_{uuid.uuid4().hex}.wav"
         output_path = os.path.join(AUDIO_FOLDER, filename)
 
-        tts_clone.tts_to_file(
-            text=text,
-            speaker_wav=MY_VOICE,
-            language=language,
-            file_path=output_path
+        # tts_clone.tts_to_file(
+        #     text=text,
+        #     speaker_wav=MY_VOICE,
+        #     language=language,
+            # file_path=output_path
         )
 
         return jsonify({
             "success": True,
             "audio_url": url_for('static', filename=f"audio/{filename}")
+            "message"="TTS Disabled"
         })
 
     except Exception as e:
@@ -68,8 +69,8 @@ def generate():
 def generate_ai():
     try:
         global tts_ai
-        if tts_ai is None:
-            tts_ai = TTS("tts_models/en/vctk/vits").to(device)
+        # if tts_ai is None:
+        #     tts_ai = TTS("tts_models/en/vctk/vits").to(device)
 
         text = request.form.get("text", "").strip()
 
@@ -79,7 +80,7 @@ def generate_ai():
         filename = f"ai_{uuid.uuid4().hex}.wav"
         output_path = os.path.join(AUDIO_FOLDER, filename)
 
-        tts_ai.tts_to_file(text=text, speaker="p225", file_path=output_path)
+        # tts_ai.tts_to_file(text=text, speaker="p225", file_path=output_path)
 
         return jsonify({
             "success": True,
@@ -95,8 +96,8 @@ def generate_ai():
 def generate_rajini():
     try:
         global tts_clone
-        if tts_clone is None:
-            tts_clone = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+        # if tts_clone is None:
+        #     tts_clone = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
         text = request.form.get("text", "").strip()
         language = request.form.get("language", "en")
@@ -110,11 +111,11 @@ def generate_rajini():
         filename = f"rajini_{uuid.uuid4().hex}.wav"
         output_path = os.path.join(AUDIO_FOLDER, filename)
 
-        tts_clone.tts_to_file(
-            text=text,
-            speaker_wav=RAJINI_VOICE,
-            language=language,
-            file_path=output_path
+        # tts_clone.tts_to_file(
+        #     text=text,
+        #     speaker_wav=RAJINI_VOICE,
+        #     language=language,
+        #     file_path=output_path
         )
 
         return jsonify({
