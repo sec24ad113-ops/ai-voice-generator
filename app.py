@@ -50,9 +50,9 @@ def generate():
         
 
         return jsonify({
-            "success": True,
-            "audio_url": url_for('static', filename=f"audio/{filename}")
-            "message"="TTS Disabled"
+        "success": True,
+        "audio_url": url_for('static', filename=f"audio/{filename}"),
+        "message": "TTS Disabled"
         })
 
     except Exception as e:
